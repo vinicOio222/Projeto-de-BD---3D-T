@@ -25,13 +25,13 @@ class DataBase:
         tabela_ficha = '''
             CREATE TABLE "Ficha" (
                 "ID_Ficha" INTEGER PRIMARY KEY,
-	            "Nome" TEXT NOT NULL UNIQUE,
+	            "Nome" TEXT NOT NULL,
 	            "Arquetipo"	TEXT NOT NULL,
-	            "XP" INTEGER NOT NULL,
+	            "XP" INTEGER DEFAULT 100 NOT NULL,
 	            "Poder"	INTEGER NOT NULL,
 	            "Habilidade" INTEGER NOT NULL,
                 "Resistencia" INTEGER NOT NULL,
-	            "Tipo_Ficha" TEXT NOT NULL,
+	            "Tipo_Ficha" TEXT CHECK(Tipo_Ficha IN ("Player", "Veiculo")) NOT NULL,
 	            "Email_Usuario" TEXT NOT NULL,
                 "ID_Mesa" INTEGER NOT NULL,
 	            FOREIGN KEY ("Email_Usuario") REFERENCES "Usuario"("Email"),
@@ -121,9 +121,9 @@ class DataBase:
         self.cursor.execute(query,values)
         self.conn.commit()
 
-    def cadastrar_ficha(self, ID_Ficha, Nome, Arquetipo, XP, Poder, Habilidade, Resistencia, Tipo_Ficha, Email_Usuario, ID_Mesa):
-        query = "INSERT INTO Ficha (ID_Ficha, Nome, Arquetipo, XP, Poder, Habilidade, Resistencia, Tipo_Ficha, Email_Usuario, ID_Mesa) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-        values = (ID_Ficha, Nome, Arquetipo, XP, Poder, Habilidade, Resistencia, Tipo_Ficha, Email_Usuario, ID_Mesa)
+    def cadastrar_ficha(self, ID_Ficha, Nome, Arquetipo, Poder, Habilidade, Resistencia, Tipo_Ficha, Email_Usuario, ID_Mesa):
+        query = "INSERT INTO Ficha (ID_Ficha, Nome, Arquetipo, Poder, Habilidade, Resistencia, Tipo_Ficha, Email_Usuario, ID_Mesa) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)"
+        values = (ID_Ficha, Nome, Arquetipo, Poder, Habilidade, Resistencia, Tipo_Ficha, Email_Usuario, ID_Mesa)
         self.cursor.execute(query, values)
         self.conn.commit()
 
@@ -180,10 +180,12 @@ Db = DataBase()
 Db.criar_tabelas()
 Db.cadastrar_mesa("Ragnarok", 122, "mtafg567@gmail.com")
 Db.cadastrar_usuario("mtafg567@gmail.com", "Vinicoios", "coio290903.")
-Db.cadastrar_ficha(1, "Cecilus Sigurd", "Humano", 0, 11, 15, 19, "Player", "mtafg567@gmail.com",122)
+Db.cadastrar_ficha(1, "Cecilus Sigurd", "Humano", 11, 15, 19, "Player", "mtafg567@gmail.com",122)
 Db.cadastrar_vantagem("Ágil", 1)
 Db.cadastrar_vantagem("Anulação", 1)
 Db.cadastrar_desvantagem("Antipático",1)
 Db.cadastrar_desvantagem("Frágil",1)
 Db.cadastrar_item_artefato(233, "Wasameru", "Mítico", 190, "Arma", 1, "Sagrado")
 Db.cadastrar_item_tecnica(444, "Expurgar", "Lendária", "Truque Lendário", 1, 800, 9, 300, 2, "Magia, Mística")
+Db.cadastrar_pericia("Arte", 1)
+
