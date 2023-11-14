@@ -25,7 +25,7 @@ Projeto para a cadeira de Banco de Dados que funciona como um SGDB para armazena
 
        .venv\api_3dt_rpg_SQLAlchemy\app
 
-**ATENÇÃO** -> As próximas instruções serão somente necessárias se não houver o arquivo .db e/ou a pasta **migrations** ou os mesmos forem deletados
+**ATENÇÃO** -> A instrução 6 a seguir será somente necessária se não houver o arquivo .db e/ou a pasta **migrations** ou os mesmos forem deletados
 
 6. Ajuste as migrações das tabelas no Banco de Dados
 
