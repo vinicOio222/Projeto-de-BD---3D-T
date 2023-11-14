@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify
+from sqlalchemy import or_
 from api_3dt_rpg_SQLAlchemy.app.models.usuario import Usuario
 
 usuario_bp = Blueprint('usuario', __name__)
@@ -28,11 +29,13 @@ def listar_usuario_endpoint():
 
 @usuario_bp.route('/pesquisar_usuario/<email>', methods=['GET'])
 def pesquisar_usuario(email):
-    usuario = Usuario.query.get(email)
+    usuario = Usuario.query.filter(Usuario.email.like(f'%{email}%')).first()
     if usuario is not None:
-        return jsonify(usuario.to_dict()), 200
+        usuario_dict = usuario.to_dict()
+        return jsonify(usuario_dict), 200
     else:
         return jsonify({"message": "Usuário não encontrado"}), 404
+
 
 @usuario_bp.route('/excluir_usuario/<email>', methods=['DELETE'])
 def excluir_usuario(email):

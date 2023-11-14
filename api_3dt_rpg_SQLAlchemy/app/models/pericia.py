@@ -2,7 +2,8 @@ from api_3dt_rpg_SQLAlchemy.app.database.database import db
 
 class Pericia(db.Model):
     __tablename__ = "Pericias"
-    nome_pericia = db.Column(db.String(120))
+    id_pericia = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    nome_pericia = db.Column(db.String(120), nullable = False)
     id_ficha = db.Column(db.Integer, db.ForeignKey('Fichas.id_ficha', ondelete = "CASCADE", onupdate = "CASCADE"), nullable=False)
 
     ficha = db.relationship('Ficha', back_populates='pericias')
@@ -20,7 +21,7 @@ class Pericia(db.Model):
     def save(self):
         db.session.add(self)
         db.session.commit()
-        
+
     def delete(self):
         db.session.delete(self)
         db.session.commit()

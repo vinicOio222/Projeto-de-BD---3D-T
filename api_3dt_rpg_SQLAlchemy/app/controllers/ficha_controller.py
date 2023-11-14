@@ -1,9 +1,9 @@
 from flask import Blueprint, request, jsonify
-from sqlalchemy.orm.exc import NoResultFound 
-from models.ficha import Ficha
-from models.vantagem import Vantagem
-from models.desvantagem import Desvantagem
-from models.pericia import Pericia
+from sqlalchemy.orm.exc import NoResultFound
+from api_3dt_rpg_SQLAlchemy.app.models.ficha import Ficha
+from api_3dt_rpg_SQLAlchemy.app.models.vantagem import Vantagem
+from api_3dt_rpg_SQLAlchemy.app.models.desvantagem import Desvantagem
+from api_3dt_rpg_SQLAlchemy.app.models.pericia import Pericia
 from api_3dt_rpg_SQLAlchemy.app.database.database import db
 
 ficha_bp = Blueprint('ficha', __name__)
@@ -109,13 +109,22 @@ def atualizar_ficha(id_ficha):
     except Exception as e:
         return jsonify({"erro": str(e)}), 500
 
+@ficha_bp.route('/pesquisar_ficha/<nome>', methods=['GET'])
+def pesquisar_ficha(nome):
+    resultados = Ficha.query.filter(Ficha.nome.like(f"%{nome}%")).all()
+
+    if resultados:
+        fichas_dict = [ficha.to_dict() for ficha in resultados]
+        return jsonify(fichas_dict), 200
+    else:
+        return jsonify({"message": "Nenhuma ficha encontrada"}), 404
 
 @ficha_bp.route('/cadastrar_ficha/vantagem', methods=['POST'])
 def cadastrar_vantagem_endpoint():
     data = request.get_json()
     id_ficha = data['id_ficha']
     nome_vant = data['nome']
-    
+
     try:
         ficha = Ficha.query.get(id_ficha)
         if ficha:

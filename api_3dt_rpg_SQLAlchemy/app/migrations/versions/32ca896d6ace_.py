@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: c0ab1c61729a
+Revision ID: 32ca896d6ace
 Revises: 
-Create Date: 2023-11-14 14:21:05.830186
+Create Date: 2023-11-14 18:40:12.244131
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'c0ab1c61729a'
+revision = '32ca896d6ace'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -53,22 +53,25 @@ def upgrade():
     sa.PrimaryKeyConstraint('id_ficha')
     )
     op.create_table('Desvantagens',
+    sa.Column('id_desvant', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('nome_desvant', sa.String(length=120), nullable=False),
     sa.Column('id_ficha', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['id_ficha'], ['Fichas.id_ficha'], onupdate='CASCADE', ondelete='CASCADE'),
-    sa.PrimaryKeyConstraint('nome_desvant')
+    sa.PrimaryKeyConstraint('id_desvant')
     )
     op.create_table('Pericias',
+    sa.Column('id_pericia', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('nome_pericia', sa.String(length=120), nullable=False),
     sa.Column('id_ficha', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['id_ficha'], ['Fichas.id_ficha'], onupdate='CASCADE', ondelete='CASCADE'),
-    sa.PrimaryKeyConstraint('nome_pericia')
+    sa.PrimaryKeyConstraint('id_pericia')
     )
     op.create_table('Vantagens',
+    sa.Column('id_vant', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('nome_vant', sa.String(length=120), nullable=False),
     sa.Column('id_ficha', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['id_ficha'], ['Fichas.id_ficha'], onupdate='CASCADE', ondelete='CASCADE'),
-    sa.PrimaryKeyConstraint('nome_vant')
+    sa.PrimaryKeyConstraint('id_vant')
     )
     # ### end Alembic commands ###
 

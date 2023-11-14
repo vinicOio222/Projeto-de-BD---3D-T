@@ -2,7 +2,8 @@ from api_3dt_rpg_SQLAlchemy.app.database.database import db
 
 class Vantagem(db.Model):
     __tablename__ = "Vantagens"
-    nome_vant = db.Column(db.String(120))
+    id_vant = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    nome_vant = db.Column(db.String(120), nullable = False)
     id_ficha = db.Column(db.Integer, db.ForeignKey('Fichas.id_ficha', ondelete="CASCADE", onupdate="CASCADE"), nullable=False)
 
     ficha = db.relationship('Ficha', back_populates='vantagens')
