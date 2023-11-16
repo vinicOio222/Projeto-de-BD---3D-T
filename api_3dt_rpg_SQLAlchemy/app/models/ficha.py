@@ -1,5 +1,6 @@
 from api_3dt_rpg_SQLAlchemy.app.database.database import db
 from sqlalchemy.schema import CheckConstraint
+from sqlalchemy.exc import IntegrityError
 
 class Ficha(db.Model):
     __tablename__ = "Fichas"
@@ -21,7 +22,7 @@ class Ficha(db.Model):
     vantagens = db.relationship('Vantagem', back_populates='ficha', cascade="all, delete-orphan", single_parent=True)
     desvantagens = db.relationship('Desvantagem', back_populates='ficha', cascade="all, delete-orphan", single_parent=True)
     pericias = db.relationship('Pericia', back_populates='ficha', cascade="all, delete-orphan", single_parent=True)
-
+    itens = db.relationship('Item', back_populates='fichas', cascade="all, delete-orphan", single_parent=True)
     ficha_associada = db.relationship('Ficha', back_populates='veiculo', remote_side=[id_ficha])
 
     __table_args__ = (
@@ -67,3 +68,17 @@ class Ficha(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+    def gastar_xp_ficha(self, xp):
+        try:
+            ficha = Ficha.query.get(self.id_ficha)
+
+            if ficha.xp < xp:
+                return False
+
+            ficha.xp -= xp
+            db.session.commit()
+            return True
+        except IntegrityError:
+            db.session.rollback()
+            return False

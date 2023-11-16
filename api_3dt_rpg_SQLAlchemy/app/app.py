@@ -2,7 +2,6 @@ import os
 from sqlalchemy import event, Engine
 from flask import Flask, jsonify
 from flask_migrate import Migrate
-from api_3dt_rpg_SQLAlchemy.app.models.usuario import Usuario
 from api_3dt_rpg_SQLAlchemy.app.controllers.mesa_controller import mesa_bp
 from api_3dt_rpg_SQLAlchemy.app.controllers.usuario_controller import usuario_bp
 from api_3dt_rpg_SQLAlchemy.app.controllers.ficha_controller import ficha_bp
