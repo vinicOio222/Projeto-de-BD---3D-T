@@ -2,6 +2,7 @@ import os
 from sqlalchemy import event, Engine
 from flask import Flask, jsonify
 from flask_migrate import Migrate
+from flask_cors import CORS
 from api_3dt_rpg_SQLAlchemy.app.controllers.mesa_controller import mesa_bp
 from api_3dt_rpg_SQLAlchemy.app.controllers.usuario_controller import usuario_bp
 from api_3dt_rpg_SQLAlchemy.app.controllers.ficha_controller import ficha_bp
@@ -25,6 +26,8 @@ app.register_blueprint(mesa_bp)
 app.register_blueprint(ficha_bp)
 
 migrate = Migrate(app, db)
+
+CORS(app, origins=["http://localhost:3000"])
 
 @app.route('/')
 def index():
