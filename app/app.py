@@ -3,14 +3,14 @@ from sqlalchemy import event, Engine
 from flask import Flask, jsonify
 from flask_migrate import Migrate
 from flask_cors import CORS
-from api_3dt_rpg_SQLAlchemy.app.controllers.mesa_controller import mesa_bp
-from api_3dt_rpg_SQLAlchemy.app.controllers.usuario_controller import usuario_bp
-from api_3dt_rpg_SQLAlchemy.app.controllers.ficha_controller import ficha_bp
-from api_3dt_rpg_SQLAlchemy.app.database.database import db
+from controllers.usuario_controller import usuario_bp
+from controllers.mesa_controller import mesa_bp
+from controllers.ficha_controller import ficha_bp
+from database.database import db
 
+path = os.path.dirname(os.path.abspath(__file__))
 app = Flask(__name__)
-basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'database/3D&T.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(path, 'database/3D&T.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
@@ -36,4 +36,4 @@ def index():
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)

@@ -1,6 +1,5 @@
 from flask import Blueprint, request, jsonify
-from sqlalchemy import or_
-from api_3dt_rpg_SQLAlchemy.app.models.usuario import Usuario
+from models.usuario import Usuario
 
 usuario_bp = Blueprint('usuario', __name__)
 

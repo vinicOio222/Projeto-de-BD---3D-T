@@ -1,9 +1,5 @@
-import sys
-sys.path.append('api_3dt_rpg')
-
 from flask import Blueprint, request, jsonify
-from api_3dt_rpg_SQLAlchemy.app.models.mesa import Mesa
-from api_3dt_rpg_SQLAlchemy.app.database.database import db
+from models.mesa import Mesa
 
 mesa_bp = Blueprint('mesa', __name__)
 

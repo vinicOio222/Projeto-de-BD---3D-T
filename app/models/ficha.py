@@ -1,4 +1,4 @@
-from api_3dt_rpg_SQLAlchemy.app.database.database import db
+from database.database import db
 from sqlalchemy.schema import CheckConstraint
 from sqlalchemy.exc import IntegrityError
 
