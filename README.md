@@ -24,7 +24,7 @@ Projeto para a cadeira de Banco de Dados que funciona como um SGDB para armazena
 
 5. Vá até a pasta do app dentro da api (para isso o .venv tem que estar ativado)
 
-       .venv\api_3dt_rpg_SQLAlchemy\app
+       .venv\app
 
 **ATENÇÃO** -> A instrução 6 a seguir será somente necessária se não houver o arquivo .db e/ou a pasta **migrations** ou os mesmos forem deletados
 
