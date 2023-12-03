@@ -1,15 +1,15 @@
 from flask import Blueprint, request, jsonify
 from sqlalchemy.orm.exc import NoResultFound
-from api_3dt_rpg_SQLAlchemy.app.models.ficha import Ficha
-from api_3dt_rpg_SQLAlchemy.app.models.vantagem import Vantagem
-from api_3dt_rpg_SQLAlchemy.app.models.desvantagem import Desvantagem
-from api_3dt_rpg_SQLAlchemy.app.models.pericia import Pericia
-from api_3dt_rpg_SQLAlchemy.app.models.item import Item
-from api_3dt_rpg_SQLAlchemy.app.models.artefato import Artefato
-from api_3dt_rpg_SQLAlchemy.app.models.qualidade import Qualidade
-from api_3dt_rpg_SQLAlchemy.app.models.tecnica import Tecnica
-from api_3dt_rpg_SQLAlchemy.app.models.requisito import Requisito
-from api_3dt_rpg_SQLAlchemy.app.database.database import db
+from models.ficha import Ficha
+from models.vantagem import Vantagem
+from models.desvantagem import Desvantagem
+from models.pericia import Pericia
+from models.item import Item
+from models.artefato import Artefato
+from models.qualidade import Qualidade
+from models.tecnica import Tecnica
+from models.requisito import Requisito
+from database.database import db
 
 ficha_bp = Blueprint('ficha', __name__)
 
@@ -45,12 +45,16 @@ def cadastrar_ficha_endpoint():
 def listar_fichas_endpoint():
     try:
         fichas = Ficha.query.all()
+
         lista_fichas = []
 
         for ficha in fichas:
             ficha_dict = ficha.to_dict()
 
             lista_itens = []
+            lista_vantagens = []
+            lista_desvantagens = []
+            lista_pericias = []
 
             for item in ficha.itens:
                 item_dict = item.to_dict()
@@ -68,7 +72,29 @@ def listar_fichas_endpoint():
 
                 lista_itens.append(item_dict)
 
+            for vantagem in ficha.vantagens:
+                vantagens_dict = vantagem.to_dict()
+                vantagens = Vantagem.query.filter_by(id_vant=vantagem.id_vant).all()
+                if vantagens:
+                    lista_vantagens.append(vantagens_dict)
+
+            for desvantagem in ficha.desvantagens:
+                desvantagens_dict = desvantagem.to_dict()
+                desvantagens = Desvantagem.query.filter_by(id_desvant=desvantagem.id_desvant).all()
+                if desvantagens:
+                    lista_desvantagens.append(desvantagens_dict)
+
+            for pericia in ficha.pericias:
+                pericias_dict = pericia.to_dict()
+                pericias = Pericia.query.filter_by(id_pericia=pericia.id_pericia).all()
+                if pericias:
+                    lista_pericias.append(pericias_dict)
+
+
             ficha_dict["itens"] = lista_itens
+            ficha_dict["vantagens"] = lista_vantagens
+            ficha_dict["desvantagens"] = lista_desvantagens
+            ficha_dict["pericias"] = lista_pericias
             lista_fichas.append(ficha_dict)
 
         return jsonify({"fichas": lista_fichas})

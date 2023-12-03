@@ -5,13 +5,13 @@ Projeto para a cadeira de Banco de Dados que funciona como um SGDB para armazena
 1. Clone o repositório com o seguinte comando do git
 
        git clone https://github.com/vinicOio222/Projeto-de-BD---3D-T.git -b SQLAlchemy
-   
+
 2. Crie um ambiente virtual em Python
 
        python -m venv .venv
 
 3. Inicialize o .venv dentro do workspace projeto
-   
+
        .venv\Scripts\activate
 
 4. Insira a pasta da API dentro do .venv e instale o Flask e suas dependências dentro ambiente
@@ -19,7 +19,8 @@ Projeto para a cadeira de Banco de Dados que funciona como um SGDB para armazena
         pip install Flask
         pip install flask_sqlalchemy
         pip install flask_migrate
-        pip install sqlalchemy 
+        pip install sqlalchemy
+        pip install flask_cors
 
 5. Vá até a pasta do app dentro da api (para isso o .venv tem que estar ativado)
 
@@ -36,9 +37,9 @@ Projeto para a cadeira de Banco de Dados que funciona como um SGDB para armazena
 7. Se tudo estiver configurado, inicialize a API Flask. Divirta-se :D
 
        flask run
-       
+
 * Devs:
   - Vinícius dos Santos
-  - Kalil Henrique 
+  - Kalil Henrique
   - Gabryella Santos
   - Lucas Holanda
