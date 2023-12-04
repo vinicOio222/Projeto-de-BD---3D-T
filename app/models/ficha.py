@@ -13,7 +13,7 @@ class Ficha(db.Model):
     resistencia = db.Column(db.Integer, nullable=False)
     tipo_ficha = db.Column(db.String(120), nullable=False)
     email_usuario = db.Column(db.String(120), db.ForeignKey('Usuarios.email'), nullable=False)
-    id_mesa = db.Column(db.Integer, db.ForeignKey('Mesas.id_mesa', ondelete='SET NULL', onupdate='CASCADE'), nullable=False)
+    id_mesa = db.Column(db.Integer, db.ForeignKey('Mesas.id_mesa', ondelete='SET NULL', onupdate='CASCADE'), nullable=True)
     id_veiculo = db.Column(db.Integer, db.ForeignKey('Fichas.id_ficha', ondelete='SET NULL', onupdate='CASCADE'), nullable=True)
 
     usuario = db.relationship('Usuario', back_populates='fichas')

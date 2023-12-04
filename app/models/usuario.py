@@ -9,7 +9,6 @@ class Usuario(db.Model):
 
     mesas = db.relationship('Mesa', back_populates='mestre', cascade="all, delete-orphan")
     fichas = db.relationship('Ficha', back_populates='usuario', cascade="all, delete-orphan")
-
     def __init__(self, email, username, nome, senha):
         self.email = email
         self.username = username

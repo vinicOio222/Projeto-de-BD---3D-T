@@ -7,7 +7,7 @@ class Mesa(db.Model):
     mestre_email = db.Column(db.String(120), db.ForeignKey('Usuarios.email', ondelete='CASCADE', onupdate='CASCADE'), nullable=False)
 
     mestre = db.relationship('Usuario', back_populates='mesas')
-    fichas = db.relationship('Ficha', back_populates='mesa', cascade="all, delete-orphan")
+    fichas = db.relationship('Ficha', back_populates='mesa', cascade="all, delete-orphan", passive_deletes=True)
 
 
     def __init__(self, nome_mesa, id_mesa, mestre_email):
